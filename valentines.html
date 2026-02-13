@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #8b0032;
+      padding: 0 10px;
+    }
+
+    .buttons {
+      position: relative;
+      width: 280px;
+      height: 200px;
+    }
+
+    button {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    #yesBtn {
+      background-color: #ff5e78;
+      color: white;
+    }
+
+    #noBtn {
+      position: absolute;
+      background-color: #444;
+      color: white;
+      left: 160px;
+      top: 0;
+    }
+
+    #message {
+      margin-top: 16px;
+      font-size: 1.1rem;
+      color: #5a0020;
+      display: none;
+    }
+
+    #finalMessage {
+      font-size: 1.8rem;
+      color: #7a003c;
+      margin-top: 25px;
+      display: none;
+      padding: 0 10px;
+    }
+
+    .flower {
+      position: absolute;
+      font-size: 24px;
+      animation: float 3s linear infinite;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      top: -30px;
+      font-size: 20px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Will you be my Valentine? 💖</h1>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 🙄</button>
+  </div>
+
+  <div id="message">Why are you running?! 🏃💨 Murife stop running 😌</div>
+  <div id="finalMessage">You lucky human you are mine now 🙄.....I guess💐💖</div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+    const finalMessage = document.getElementById("finalMessage");
+
+    let noHoverCount = 0;
+
+    function moveNoButton() {
+      const maxX = 200;
+      const maxY = 150;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      noHoverCount++;
+      if (noHoverCount > 3) {
+        message.style.display = "block";
+      }
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      finalMessage.style.display = "block";
+      blossomFlowers();
+    });
+
+    function blossomFlowers() {
+      for (let i = 0; i < 30; i++) {
+        const flower = document.createElement("div");
+        flower.className = "flower";
+        flower.innerHTML = "🌸";
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.top = window.innerHeight + "px";
+        flower.style.animationDuration = 2 + Math.random() * 2 + "s";
+        document.body.appendChild(flower);
+
+        setTimeout(() => flower.remove(), 3000);
+      }
+    }
+
+    function heartRain() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(heartRain, 300);
+  </script>
+
+</body>
+</html>
